@@ -1,0 +1,149 @@
+<div class="profile-container" *ngIf="currentMember">
+  <!-- Header -->
+  <header class="profile-header">
+    <div class="header-content">
+      <button class="back-btn" (click)="goBack()">
+        <span>←</span> Voltar
+      </button>
+      <h1>Perfil do Membro</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="profile-main">
+    <!-- Member Info Card -->
+    <section class="member-info-section">
+      <div class="member-card">
+        <div class="member-avatar">
+          <div class="avatar-circle">
+            {{ currentMember.username.charAt(0).toUpperCase() }}
+          </div>
+        </div>
+        <div class="member-details">
+          <h2>{{ currentMember.username }}</h2>
+          <p class="email">{{ currentMember.email }}</p>
+          <div class="member-stats">
+            <div class="stat-item">
+              <span class="stat-label">Plano:</span>
+              <span class="stat-value" [style.color]="getPlanColor()">{{ currentMember.plan }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Ranking:</span>
+              <span class="stat-value ranking">{{ getRankingStars() }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">B.E.Z. Coins:</span>
+              <span class="stat-value coins">{{ currentMember.bezCoins }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="member-actions">
+          <button class="action-btn primary" (click)="payMonthlyFee()">
+            💳 Pagar Mensalidade
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment History -->
+    <section class="payment-history-section">
+      <h3>Histórico de Pagamentos</h3>
+      <div class="payment-history">
+        <div class="payment-item" *ngFor="let payment of paymentHistory">
+          <div class="payment-info">
+            <div class="payment-main">
+              <h4>{{ payment.description }}</h4>
+              <p class="payment-date">{{ payment.date | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+            <div class="payment-details">
+              <span class="payment-method">{{ payment.paymentMethod }}</span>
+              <span class="payment-amount">{{ payment.currency }} {{ payment.amount }}</span>
+            </div>
+          </div>
+          <div class="payment-status">
+            <span class="status-badge" [style.background-color]="getStatusColor(payment.status)">
+              {{ payment.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account Info -->
+    <section class="account-info-section">
+      <h3>Informações da Conta</h3>
+      <div class="account-info-grid">
+        <div class="info-card">
+          <div class="info-icon">📅</div>
+          <div class="info-content">
+            <h4>Membro desde</h4>
+            <p>{{ currentMember.createdAt | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💳</div>
+          <div class="info-content">
+            <h4>Último Pagamento</h4>
+            <p>{{ currentMember.lastPaymentDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">⏰</div>
+          <div class="info-content">
+            <h4>Próximo Pagamento</h4>
+            <p>{{ currentMember.nextPaymentDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">✅</div>
+          <div class="info-content">
+            <h4>Status da Conta</h4>
+            <p [style.color]="currentMember.isActive ? '#28a745' : '#dc3545'">
+              {{ currentMember.isActive ? 'Ativa' : 'Inativa' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ranking Benefits -->
+    <section class="ranking-benefits-section" *ngIf="currentMember.ranking >= 3">
+      <h3>Vantagens do seu Ranking</h3>
+      <div class="benefits-list">
+        <div class="benefit-item" *ngIf="currentMember.ranking >= 4">
+          <div class="benefit-icon">⚡</div>
+          <div class="benefit-content">
+            <h4>Acesso Antecipado</h4>
+            <p>Você tem acesso antecipado de 30 minutos aos leads do seu segmento</p>
+          </div>
+        </div>
+        <div class="benefit-item" *ngIf="currentMember.ranking >= 5">
+          <div class="benefit-icon">🎯</div>
+          <div class="benefit-content">
+            <h4>Leads Premium</h4>
+            <p>Acesso exclusivo a leads de alta qualidade</p>
+          </div>
+        </div>
+        <div class="benefit-item" *ngIf="currentMember.ranking >= 3">
+          <div class="benefit-icon">🛡️</div>
+          <div class="benefit-content">
+            <h4>Proteção da Conta</h4>
+            <p>Sua conta está protegida contra exclusão automática</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Warning for Low Ranking -->
+    <section class="warning-section" *ngIf="currentMember.ranking < 3">
+      <div class="warning-card">
+        <div class="warning-icon">⚠️</div>
+        <div class="warning-content">
+          <h4>Atenção!</h4>
+          <p>Seu ranking está abaixo de 3 estrelas. Membros com menos de 3 estrelas são automaticamente excluídos. 
+             Melhore seu ranking através de reviews positivos dos clientes.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

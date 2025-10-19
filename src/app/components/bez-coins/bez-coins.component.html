@@ -1,0 +1,176 @@
+<div class="coins-container" *ngIf="currentMember">
+  <!-- Header -->
+  <header class="coins-header">
+    <div class="header-content">
+      <button class="back-btn" (click)="goBack()">
+        <span>←</span> Voltar
+      </button>
+      <h1>B.E.Z. Coins</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="coins-main">
+    <!-- Current Balance -->
+    <section class="balance-section">
+      <div class="balance-card">
+        <div class="balance-info">
+          <h2>Saldo Atual</h2>
+          <div class="balance-amount">
+            <span class="coins-icon">🪙</span>
+            <span class="amount">{{ currentMember.bezCoins }}</span>
+            <span class="currency">B.E.Z. Coins</span>
+          </div>
+          <p class="balance-value">≈ ${{ (currentMember.bezCoins * 0.10).toFixed(2) }} USD</p>
+        </div>
+        <div class="balance-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total Ganho</span>
+            <span class="stat-value earned">{{ calculateTotalEarned() }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Gasto</span>
+            <span class="stat-value spent">{{ calculateTotalSpent() }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Plan -->
+    <section class="current-plan-section" *ngIf="getCurrentPlan()">
+      <h3>Seu Plano Atual</h3>
+      <div class="plan-card current">
+        <div class="plan-header">
+          <div class="plan-icon">💎</div>
+          <div class="plan-info">
+            <h4>{{ getCurrentPlan()!.name }}</h4>
+            <p>${{ getCurrentPlan()!.price }}/mês</p>
+          </div>
+        </div>
+        <div class="plan-features">
+          <ul>
+            <li *ngFor="let feature of getCurrentPlan()!.features">{{ feature }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Purchase Coins -->
+    <section class="purchase-section">
+      <h3>Comprar B.E.Z. Coins</h3>
+      <div class="purchase-card">
+        <div class="purchase-options">
+          <h4>Escolha um pacote:</h4>
+          <div class="options-grid">
+            <div 
+              class="option-card" 
+              *ngFor="let option of purchaseOptions"
+              [class.selected]="selectedPurchaseAmount === option.amount"
+              (click)="selectPurchaseOption(option)"
+            >
+              <div class="option-header">
+                <span class="option-coins">{{ option.amount }}</span>
+                <span class="option-label">{{ option.label }}</span>
+              </div>
+              <div class="option-price">${{ option.price }}</div>
+              <div class="option-rate">${{ (option.price / option.amount * 100).toFixed(2) }} por 100 coins</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="purchase-form">
+          <div class="form-group">
+            <label>Método de Pagamento:</label>
+            <select [(ngModel)]="selectedPaymentMethod" name="paymentMethod">
+              <option value="Credit Card">Cartão de Crédito</option>
+              <option value="Pix">Pix</option>
+              <option value="Bank Transfer">Transferência Bancária</option>
+              <option value="PayPal">PayPal</option>
+            </select>
+          </div>
+          <div class="purchase-summary">
+            <div class="summary-item">
+              <span>Pacote selecionado:</span>
+              <span>{{ selectedPurchaseAmount }} B.E.Z. Coins</span>
+            </div>
+            <div class="summary-item">
+              <span>Valor:</span>
+              <span>${{ getSelectedOptionPrice() }}</span>
+            </div>
+            <div class="summary-item total">
+              <span>Total:</span>
+              <span>${{ getSelectedOptionPrice() }}</span>
+            </div>
+          </div>
+          <button class="purchase-btn" (click)="purchaseCoins()">
+            💳 Comprar Agora
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transaction History -->
+    <section class="transactions-section">
+      <h3>Histórico de Transações</h3>
+      <div class="transactions-list">
+        <div class="transaction-item" *ngFor="let transaction of transactions">
+          <div class="transaction-icon" [style.color]="getTransactionColor(transaction.type)">
+            {{ getTransactionIcon(transaction.type) }}
+          </div>
+          <div class="transaction-info">
+            <h4>{{ transaction.description }}</h4>
+            <p class="transaction-date">{{ transaction.date | date:'dd/MM/yyyy HH:mm' }}</p>
+            <span class="transaction-source">{{ transaction.source }}</span>
+          </div>
+          <div class="transaction-amount" [style.color]="getTransactionColor(transaction.type)">
+            <span *ngIf="transaction.type === 'Spent'">-</span>
+            <span *ngIf="transaction.type !== 'Spent'">+</span>
+            {{ Math.abs(transaction.amount) }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Purchase History -->
+    <section class="purchase-history-section">
+      <h3>Histórico de Compras</h3>
+      <div class="purchases-list">
+        <div class="purchase-item" *ngFor="let purchase of coinPurchases">
+          <div class="purchase-info">
+            <h4>{{ purchase.bezCoins }} B.E.Z. Coins</h4>
+            <p class="purchase-date">{{ purchase.date | date:'dd/MM/yyyy HH:mm' }}</p>
+            <span class="purchase-method">{{ purchase.paymentMethod }}</span>
+          </div>
+          <div class="purchase-details">
+            <span class="purchase-amount">{{ purchase.currency }} {{ purchase.price }}</span>
+            <span class="purchase-status" [style.background-color]="getStatusColor(purchase.status)">
+              {{ purchase.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan Comparison -->
+    <section class="plans-section">
+      <h3>Comparação de Planos</h3>
+      <div class="plans-grid">
+        <div class="plan-card" *ngFor="let plan of planDetails">
+          <div class="plan-header">
+            <div class="plan-icon">💎</div>
+            <div class="plan-info">
+              <h4>{{ plan.name }}</h4>
+              <p>${{ plan.price }}/mês</p>
+            </div>
+          </div>
+          <div class="plan-coins">{{ plan.bezCoins }} B.E.Z. Coins</div>
+          <div class="plan-features">
+            <ul>
+              <li *ngFor="let feature of plan.features">{{ feature }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

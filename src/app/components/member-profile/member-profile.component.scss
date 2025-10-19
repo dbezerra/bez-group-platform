@@ -1,0 +1,404 @@
+.profile-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.profile-header {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    gap: 20px;
+
+    .back-btn {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:hover {
+        background: #5a6268;
+      }
+    }
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.profile-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.member-info-section {
+  margin-bottom: 40px;
+
+  .member-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    .member-avatar {
+      .avatar-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+    }
+
+    .member-details {
+      flex: 1;
+
+      h2 {
+        margin: 0 0 5px 0;
+        color: #333;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .email {
+        margin: 0 0 20px 0;
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .member-stats {
+        display: flex;
+        gap: 30px;
+
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+          }
+
+          .stat-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+
+            &.ranking {
+              color: #ffc107;
+              font-size: 1.3rem;
+            }
+
+            &.coins {
+              color: #ffd700;
+            }
+          }
+        }
+      }
+    }
+
+    .member-actions {
+      .action-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+      }
+    }
+  }
+}
+
+.payment-history-section {
+  margin-bottom: 40px;
+
+  h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .payment-history {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .payment-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #e1e5e9;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .payment-info {
+        flex: 1;
+
+        .payment-main {
+          margin-bottom: 8px;
+
+          h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 600;
+          }
+
+          .payment-date {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+          }
+        }
+
+        .payment-details {
+          display: flex;
+          gap: 20px;
+
+          .payment-method {
+            color: #666;
+            font-size: 0.9rem;
+          }
+
+          .payment-amount {
+            color: #333;
+            font-weight: 600;
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .payment-status {
+        .status-badge {
+          padding: 6px 12px;
+          border-radius: 20px;
+          color: white;
+          font-size: 0.8rem;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+
+.account-info-section {
+  margin-bottom: 40px;
+
+  h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .account-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+
+    .info-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .info-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
+
+      .info-content {
+        h4 {
+          margin: 0 0 5px 0;
+          color: #333;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        p {
+          margin: 0;
+          color: #666;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+.ranking-benefits-section {
+  margin-bottom: 40px;
+
+  h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .benefit-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .benefit-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border-radius: 10px;
+      }
+
+      .benefit-content {
+        h4 {
+          margin: 0 0 5px 0;
+          color: #333;
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+
+        p {
+          margin: 0;
+          color: #666;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
+
+.warning-section {
+  .warning-card {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .warning-icon {
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .warning-content {
+      h4 {
+        margin: 0 0 5px 0;
+        color: #856404;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        color: #856404;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-main {
+    padding: 20px 15px;
+  }
+
+  .member-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px !important;
+
+    .member-stats {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px !important;
+    }
+  }
+
+  .payment-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 15px;
+
+    .payment-status {
+      align-self: flex-end;
+    }
+  }
+
+  .account-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="language-selector">
+  <div class="language-dropdown">
+    <button class="language-button" (click)="toggleDropdown()">
+      <span class="flag">{{ getCurrentFlag() }}</span>
+      <span class="language-name">{{ getCurrentLanguageName() }}</span>
+      <span class="arrow">▼</span>
+    </button>
+    
+    <div class="language-menu" [class.show]="showDropdown">
+      <button 
+        *ngFor="let lang of availableLanguages"
+        class="language-option"
+        [class.active]="lang.code === currentLanguage"
+        (click)="changeLanguage(lang.code)"
+      >
+        <span class="flag">{{ lang.flag }}</span>
+        <span class="name">{{ lang.name }}</span>
+      </button>
+    </div>
+  </div>
+</div>
