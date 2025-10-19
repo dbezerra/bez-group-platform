@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
-    "build:vercel": "ng build --configuration production",
+    "build:vercel": "npx ng build --configuration production",
+    "build:shell": "bash build.sh",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
